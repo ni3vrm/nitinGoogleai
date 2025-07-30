@@ -150,18 +150,19 @@ function renderProfile(profileData: string[][]) {
 
 function renderSkills(coreSkills: string[][], technicalSkills: string[][]) {
     const renderSkillList = (elementId: string, skills: string[][]) => {
-        const ul = document.querySelector(`#${elementId} ul`)!;
-        ul.innerHTML = ''; // Clear loading/default
-        if (skills.length > 0 && skills.some(row => row && row[0] && row[0].trim() !== '')) { // Added check for row
+        const container = document.querySelector(`#${elementId} .skills-tag-container`)!;
+        container.innerHTML = ''; // Clear loading/default
+        if (skills.length > 0 && skills.some(row => row && row[0] && row[0].trim() !== '')) {
             skills.forEach(skillRow => {
-                if (skillRow && skillRow[0] && skillRow[0].trim() !== '') { // Ensure skill name exists and is not just whitespace
-                    const li = document.createElement('li');
-                    li.textContent = skillRow[0].trim();
-                    ul.appendChild(li);
+                if (skillRow && skillRow[0] && skillRow[0].trim() !== '') {
+                    const tag = document.createElement('span');
+                    tag.classList.add('skill-tag');
+                    tag.textContent = skillRow[0].trim();
+                    container.appendChild(tag);
                 }
             });
         } else {
-            ul.innerHTML = '<li>Skills data not available.</li>';
+            container.innerHTML = '<span class="skill-tag-placeholder">Skills data not available.</span>';
         }
     };
 
@@ -174,59 +175,62 @@ function renderExperience(experienceData: string[][]) {
     timeline.innerHTML = ''; // Clear loading/default
 
     if (experienceData.length === 0 || (experienceData.length === 1 && experienceData[0] && experienceData[0].every(cell => !cell || cell.trim() === ''))) {
-        timeline.innerHTML = '<p>Work experience data not available or incomplete. Please check sheet "Experience".</p>';
+        timeline.innerHTML = '<p>Work experience data not available or incomplete. Please check sheet "Experience". Expected 7 columns: Title, Company, Location, StartDate, EndDate, Details, IconLink.</p>';
         return;
     }
 
-    experienceData.forEach((exp, index) => {
-        if (!exp) return; // Skip if row is undefined (e.g. from sparse arrays after slice)
-        const [date, title, company, descriptionString] = exp;
-        if (!date && !title && !company && !(descriptionString && descriptionString.trim())) return; // Skip entirely empty logical rows
+    experienceData.forEach((exp) => {
+        if (!exp) return; // Skip if row is undefined
+        
+        // IMPORTANT: The Google Sheet "Experience" must have these 7 columns in this order.
+        // 1. Title, 2. Company, 3. Location, 4. StartDate, 5. EndDate, 6. Details, 7. IconLink
+        const [title, company, location, startDate, endDate, descriptionString, iconLink] = exp;
+
+        if (!title && !company) return; // Skip if the core info is missing.
 
         const item = document.createElement('div');
         item.classList.add('timeline-item');
-        
-        // Find first non-empty item to make active (useful if initial data rows were sparse)
-        const validItems = Array.from(timeline.children).filter(child => child.classList.contains('timeline-item'));
-        if (validItems.length === 0 && (date || title || company)) { 
-             item.classList.add('active');
-        }
-
 
         const descriptionPoints = descriptionString ? descriptionString.split(';').map(s => s.trim()).filter(s => s) : [];
 
+        // Format the date string based on available data
+        let dateText = 'Date N/A';
+        if (startDate && endDate) {
+            dateText = `${startDate} - ${endDate}`;
+        } else if (startDate) {
+            dateText = startDate;
+        }
+
+        const timelineMarkerHtml = iconLink && iconLink.trim() !== '' 
+            ? `<img src="${iconLink}" alt="${company || 'Company Logo'}" class="timeline-icon">`
+            : '<div class="timeline-dot"></div>';
+
         item.innerHTML = `
-            <div class="timeline-item-date">${date || 'Date N/A'}</div>
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-                <h3>${title || 'Title N/A'}</h3>
-                <span class="company-name">${company || 'Company N/A'}</span>
-                <div class="timeline-details">
-                    <ul>
-                        ${descriptionPoints.length > 0 ? descriptionPoints.map(point => `<li>${point}</li>`).join('') : '<li>Details not available.</li>'}
-                    </ul>
+            ${timelineMarkerHtml}
+            <div class="timeline-date">${dateText}</div>
+            <div class="timeline-card">
+                <div class="timeline-card-inner">
+                    <div class="timeline-card-front">
+                        <h3>${title || 'Title N/A'}</h3>
+                        <span class="company-name">${company || 'Company N/A'}</span>
+                        <div class="location-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${location || 'Location N/A'}</span>
+                        </div>
+                    </div>
+                    <div class="timeline-card-back">
+                        <div class="timeline-details">
+                            <h4>${title || 'Title N/A'}</h4>
+                            <ul>
+                                ${descriptionPoints.length > 0 ? descriptionPoints.map(point => `<li>${point}</li>`).join('') : '<li>Details not available.</li>'}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
         timeline.appendChild(item);
-
-        const content = item.querySelector('.timeline-content');
-        if (content) {
-            content.addEventListener('click', () => {
-                timeline.querySelectorAll('.timeline-item.active').forEach(activeItem => {
-                    if (activeItem !== item) {
-                        activeItem.classList.remove('active');
-                    }
-                });
-                item.classList.toggle('active');
-            });
-        }
     });
-     // If no item became active because all initial items were sparse, try to activate the first valid one added.
-    if (!timeline.querySelector('.timeline-item.active')) {
-        const firstValidItem = timeline.querySelector('.timeline-item');
-        if (firstValidItem) firstValidItem.classList.add('active');
-    }
 }
 
 function renderProjects(projectData: string[][]) {

@@ -598,149 +598,251 @@ body {
     gap: 30px;
 }
 
-.skill-category {
-    /* holographic-effect-card applied */
-}
-
 .skill-category h3 {
     font-family: var(--font-primary);
     color: var(--cred-accent);
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 1.4em;
     border-bottom: 2px solid var(--cred-accent-darker);
     padding-bottom: 8px;
 }
 
-.skill-category ul {
-    list-style: none;
-    padding: 0;
+.skills-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-.skill-category ul li {
-    margin-bottom: 10px;
-    font-size: 1em;
-    color: var(--cred-text-secondary);
-    padding: 8px 12px;
+.skill-tag {
     background-color: var(--cred-surface-inset-bg);
-    border-radius: 6px;
-    transition: background-color 0.3s, color 0.3s;
+    color: var(--cred-text-secondary);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.95em;
+    border: 1px solid var(--cred-surface-alt);
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
-.skill-category ul li:hover {
+
+.skill-tag:hover {
     background-color: var(--cred-accent);
     color: var(--cred-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(var(--cred-accent-rgb), 0.2);
 }
 
-/* Experience Timeline */
+.skill-tag-placeholder {
+    color: var(--cred-text-secondary);
+    font-style: italic;
+}
+
+
+/* --- Experience Timeline - REFINED 3D FLIP CARD LAYOUT --- */
 .experience-timeline {
     position: relative;
-    max-width: 800px;
+    max-width: 900px; /* Wider to accommodate dates */
     margin: 0 auto;
     padding: 20px 0;
 }
 
-.experience-timeline::before { /* The central line */
+.experience-timeline::after { /* The central line */
     content: '';
     position: absolute;
-    left: 20px; /* Position of the line */
-    top: 0;
-    bottom: 0;
     width: 4px;
     background-color: var(--cred-surface-alt);
+    top: 60px; /* Start after first icon, adjusted for larger icons */
+    bottom: 60px; /* End before last icon, adjusted for larger icons */
+    left: 50%;
+    margin-left: -2px;
     border-radius: 2px;
 }
 
 .timeline-item {
+    padding: 10px 40px;
     position: relative;
-    margin-bottom: 30px;
-    padding-left: 60px; /* Space for date and dot */
+    width: 50%;
+    margin-bottom: 30px; /* Reduced space between cards */
 }
 
-.timeline-dot {
-    content: '';
+/* Position items on alternating sides */
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-dot, .timeline-icon {
     position: absolute;
-    left: 12px; /* Centered on the line (20px - 4px/2 - 6px radius) */
-    top: 5px; /* Align with text */
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: var(--cred-accent);
-    border: 3px solid var(--cred-bg);
-    z-index: 1;
+    top: 50%; /* Center vertically on the item's height */
+    transform: translateY(-50%);
+    z-index: 2;
     transition: transform 0.3s ease;
 }
 
-.timeline-item-date {
+.timeline-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--cred-accent);
+    border: 3px solid var(--cred-bg);
+}
+
+.timeline-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--cred-surface);
+    border: 2px solid var(--cred-bg);
+    object-fit: cover;
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+    right: -17px; /* (30/2) + (4/2) = 17 */
+}
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -17px;
+}
+.timeline-item:nth-child(odd) .timeline-icon {
+    right: -26px; /* (48/2) + (4/2) = 26 */
+}
+.timeline-item:nth-child(even) .timeline-icon {
+    left: -26px;
+}
+
+.timeline-item:hover .timeline-dot,
+.timeline-item:hover .timeline-icon {
+    transform: translateY(-50%) scale(1.3);
+}
+
+.timeline-date {
     position: absolute;
-    left: 60px; /* To the right of the dot and padding */
-    top: 3px;
-    font-weight: bold;
+    top: 50%;
+    transform: translateY(-50%);
     color: var(--cred-text-secondary);
+    font-weight: 600;
     font-size: 0.9em;
-    background-color: var(--cred-surface);
-    padding: 3px 8px;
-    border-radius: 4px;
-    width: auto; /* Adjust to content */
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.timeline-item:nth-child(odd) .timeline-date {
+    left: 100%;
     text-align: left;
-    transform: translateX(-130px); /* Push to the left of the line */
+    margin-left: 40px; /* Pushes date to the right of the central line */
 }
 
-.timeline-content {
-    background-color: var(--cred-surface);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: var(--neumorphic-shadow-raised-light);
+.timeline-item:nth-child(even) .timeline-date {
+    right: 100%;
+    text-align: right;
+    margin-right: 40px; /* Pushes date to the left of the central line */
+}
+
+
+/* Flip Card Structure */
+.timeline-card {
+    width: 100%;
+    perspective: 1500px;
     position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.timeline-content:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--neumorphic-shadow-raised);
 }
 
-.timeline-content h3 {
+.timeline-card-inner {
+    width: 100%;
+    transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+    display: grid;
+}
+
+.timeline-item:hover .timeline-card-inner {
+    transform: rotateY(180deg);
+}
+
+.timeline-card-front,
+.timeline-card-back {
+    width: 100%;
+    grid-area: 1 / 1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-color: var(--cred-surface);
+    border-radius: 10px;
+    box-shadow: var(--neumorphic-shadow-raised);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px; /* Reduced padding */
+    text-align: center;
+}
+
+.timeline-card-back {
+    transform: rotateY(180deg);
+    align-items: flex-start;
+    text-align: left;
+    overflow-y: auto; /* For long descriptions */
+}
+
+/* Card Content Styling */
+.timeline-card-front h3 { /* Job Title */
+    font-family: var(--font-primary);
+    color: var(--cred-text-primary);
+    margin: 0 0 5px 0; /* Reduced margin */
+    font-size: 1.1em; /* Reduced font size */
+}
+
+.timeline-card-front .company-name { /* Company Name */
+    color: var(--cred-accent);
+    font-weight: bold;
+    font-size: 0.95em; /* Reduced font size */
+    display: block;
+    margin-bottom: 12px; /* Reduced margin */
+}
+
+.timeline-card-front .location-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--cred-text-secondary);
+    font-size: 0.9em; /* Reduced font size */
+}
+
+.timeline-card-front .location-info i {
+    color: var(--cred-accent);
+}
+
+/* Back of Card Details */
+.timeline-details {
+    width: 100%;
+}
+.timeline-details h4 {
     font-family: var(--font-primary);
     color: var(--cred-accent);
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.3em;
-}
-.timeline-content .company-name {
-    color: var(--cred-text-primary);
-    font-weight: bold;
-    font-size: 1em;
-    display: block;
-    margin-bottom: 10px;
-}
-
-.timeline-details {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
-    padding-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.15em; /* Match front title */
+    border-bottom: 1px solid var(--cred-surface-alt);
+    padding-bottom: 8px;
 }
 .timeline-details ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-top: 0;
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
 }
 .timeline-details ul li {
-    margin-bottom: 8px;
-    font-size: 0.95em;
+    margin-bottom: 10px;
+    font-size: 0.9em;
     color: var(--cred-text-secondary);
+    position: relative;
+    padding-left: 20px;
+    line-height: 1.5;
+}
+.timeline-details ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--cred-accent);
+    font-weight: bold;
 }
 
-/* Active state for timeline item */
-.timeline-item.active .timeline-dot {
-    transform: scale(1.3);
-}
-.timeline-item.active .timeline-content {
-    box-shadow: 0 0 20px rgba(var(--cred-accent-rgb), 0.3), var(--neumorphic-shadow-raised);
-}
-.timeline-item.active .timeline-details {
-    max-height: 500px; /* Adjust as needed */
-    padding-top: 15px;
-}
 
 /* Projects */
 .project-grid {
@@ -1178,35 +1280,58 @@ footer #footerLinkedInLink, footer #footerEmailLink {
     .section h2 {
         font-size: 2em;
     }
-
+    
     .skills-grid, .project-grid, #educationList, #awardsList, .testimonial-grid {
         grid-template-columns: 1fr; /* Single column on smaller screens */
     }
 
-    .experience-timeline::before {
-        left: 10px; /* Adjust line position */
+    /* Responsive Timeline */
+    .experience-timeline::after {
+        left: 20px; /* Move line to the left */
+        margin-left: 0;
     }
     .timeline-item {
-        padding-left: 40px; /* Adjust padding */
+        width: 100%;
+        padding: 0 15px 40px 50px; /* Adjust padding for single column */
+        left: 0 !important; /* Override inline left style */
+    }
+    
+    .timeline-dot, .timeline-icon {
+        /* Common mobile styles */
+        right: auto !important;
+        top: 25px; /* Adjust vertical alignment for mobile */
+        transform: none !important; /* Remove vertical centering */
     }
     .timeline-dot {
-        left: 2px; /* Adjust dot position */
-        width: 12px;
-        height: 12px;
+        left: 5px !important; /* 20px line pos - 15px half-dot-width */
     }
-    .timeline-item-date {
-        position: static; /* Stack date above content */
+    .timeline-icon {
+        left: -4px !important; /* 20px line pos - 24px half-icon-width */
+    }
+
+     .timeline-item:hover .timeline-dot,
+     .timeline-item:hover .timeline-icon {
+        transform: scale(1.3) !important;
+    }
+    .timeline-date {
+        position: relative;
+        text-align: left !important;
+        left: 0;
+        top: 0;
         transform: none;
-        margin-bottom: 8px;
-        text-align: left;
-        width: auto;
-        background-color: transparent;
+        margin: 0 0 10px 0; /* Space below date */
         padding: 0;
-        font-size: 0.85em;
+        font-size: 0.9em;
+        white-space: normal;
     }
-    .timeline-content {
-        padding: 15px;
+    .timeline-card {
+        margin-top: 0;
     }
+    /* Disable flip on hover for touch devices to avoid sticky hover */
+    .timeline-item:hover .timeline-card-inner {
+        transform: none;
+    }
+
 
     .custom-file-input-wrapper {
         /* flex-direction: column is already set above */
@@ -1230,43 +1355,4 @@ footer #footerLinkedInLink, footer #footerEmailLink {
     #header .subtitle {
         font-size: 1.1em;
     }
-    .glow-on-hover { /* For resume button */
-        width: 180px;
-        height: 45px;
-        font-size: 0.9em;
-    }
-    .lottie-button-icon { /* Adjust for smaller buttons */
-        width: 24px;
-        height: 24px;
-    }
-    #backToTopBtn {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2em;
-        bottom: 15px;
-        right: 15px;
-    }
-    .cvsync-form {
-        padding: 20px;
-    }
-    .cvsync-textarea {
-        font-size: 0.9em;
-    }
-    .cvsync-output-text {
-        font-size: 0.9em;
-        padding: 15px;
-    }
-    .lottie-cvsync-loading {
-        width: 120px;
-        height: 120px;
-    }
-    .lottie-upload-prompt-animation {
-        width: 70px;
-        height: 70px;
-    }
-}
-
-#loading-indicator i {
-    color: var(--cred-accent);
-    font-size: 2em;
 }
