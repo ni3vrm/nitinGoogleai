@@ -1,1126 +1,1272 @@
-/**
- * This file contains all the CSS styles for the portfolio website.
- * It defines the visual appearance, layout, colors, fonts, and animations.
- */
-
 * {
-  margin: 0; /* Removes default browser margins */
-  padding: 0; /* Removes default browser padding */
-  box-sizing: border-box !important; /* Ensures padding and border are included in element's total width/height */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box !important;
 }
 
-/* Global Styles - Defines the overall look and feel */
+/* Global Styles */
 :root {
-    /* Theme Variables: These are like named colors/values that can be reused throughout the stylesheet. */
-    /* This theme is inspired by CRED (a dark, modern UI style). */
-    --cred-bg: #23272F; /* Main dark background color for surfaces like navbar/cards */
-    --cred-surface: #2C313A; /* Slightly lighter gray for primary card surfaces */
-    --cred-surface-alt: #3A3F4B; /* Another variation for alternate surfaces or hover states */
-    --cred-surface-inset-bg: #1E2228; /* Darker color for creating inset shadow effects */
-    --cred-text-primary: #E4E6EB; /* Main text color (off-white) */
-    --cred-text-secondary: #B0B3B8; /* Secondary text color (lighter gray) */
-    --cred-accent: #64FFDA; /* Bright accent color (teal/cyan) for highlights and interactive elements */
-    --cred-accent-rgb: 100, 255, 218; /* RGB version of the accent color, used for transparent colors (e.g., rgba) */
-    --cred-accent-darker: #4CBFA6; /* A darker shade of the accent color, often for hover states */
+    /* CRED Inspired Theme Variables */
+    --cred-bg: #23272F; /* Dark Cool Gray */
+    --cred-surface: #2C313A; /* Slightly Lighter Cool Gray for cards */
+    --cred-surface-alt: #3A3F4B; /* Slightly more contrast for some elements */
+    --cred-surface-inset-bg: #1E2228; /* Darker for inset effect */
+    --cred-text-primary: #E4E6EB; /* Off-white */
+    --cred-text-secondary: #B0B3B8; /* Lighter Gray */
+    --cred-accent: #64FFDA; /* Bright Teal/Cyan */
+    --cred-accent-rgb: 100, 255, 218; /* RGB for --cred-accent */
+    --cred-accent-darker: #4CBFA6;
 
-    /* Neumorphic Shadow Variables: For creating soft, 3D-like shadow effects. */
-    --neumorphic-shadow-dark-rgb: 0, 0, 0; /* RGB for the darker part of the shadow */
-    --neumorphic-shadow-light-rgb: 80, 90, 110; /* RGB for the lighter part of the shadow (adjusted for dark theme) */
+    /* Neumorphic Shadows */
+    --neumorphic-shadow-dark-rgb: 0, 0, 0;
+    --neumorphic-shadow-light-rgb: 80, 90, 110; /* Adjusted for dark theme highlights */
 
-    /* Fonts */
-    --font-primary: 'Montserrat', sans-serif; /* Primary font, often for headings */
-    --font-secondary: 'Open Sans', sans-serif; /* Secondary font, often for body text */
+    /* Original Variables (kept for reference or potential fallback, but mostly overridden) */
+    --primary-color: var(--cred-accent);
+    --secondary-color: var(--cred-surface-alt);
+    --light-gray: #f8f9fa; /* No longer primary bg */
+    --medium-gray: #4E5561; /* Darker gray for borders/lines in dark theme */
+    --dark-gray: var(--cred-text-secondary);
+    --text-color: var(--cred-text-primary);
+    --white: #ffffff;
 
-    /* Neumorphic shadow definitions for raised and pressed effects */
-    --neumorphic-shadow-raised: /* For elements that look like they are "sticking out" */
-        5px 5px 10px rgba(var(--neumorphic-shadow-dark-rgb), 0.3), /* Bottom-right shadow */
-        -5px -5px 10px rgba(var(--neumorphic-shadow-light-rgb), 0.05); /* Top-left highlight */
-    --neumorphic-shadow-pressed: /* For elements that look like they are "pushed in" */
-        inset 5px 5px 10px rgba(var(--neumorphic-shadow-dark-rgb), 0.3), /* Inner bottom-right shadow */
-        inset -5px -5px 10px rgba(var(--neumorphic-shadow-light-rgb), 0.05); /* Inner top-left highlight */
-    --neumorphic-shadow-raised-light: /* A lighter version of the raised shadow */
+    --font-primary: 'Montserrat', sans-serif;
+    --font-secondary: 'Open Sans', sans-serif;
+
+    /* Neumorphic shadow definitions */
+    --neumorphic-shadow-raised:
+        5px 5px 10px rgba(var(--neumorphic-shadow-dark-rgb), 0.3),
+        -5px -5px 10px rgba(var(--neumorphic-shadow-light-rgb), 0.05);
+    --neumorphic-shadow-pressed:
+        inset 5px 5px 10px rgba(var(--neumorphic-shadow-dark-rgb), 0.3),
+        inset -5px -5px 10px rgba(var(--neumorphic-shadow-light-rgb), 0.05);
+    --neumorphic-shadow-raised-light:
         3px 3px 6px rgba(var(--neumorphic-shadow-dark-rgb), 0.2),
         -3px -3px 6px rgba(var(--neumorphic-shadow-light-rgb), 0.04);
+
 }
 
-/* HTML element base styles */
 html {
-    scroll-behavior: smooth; /* Enables smooth scrolling when clicking on #links */
-    height: 100%; /* Important for full-height background effects like the "lines" */
-    background-color: #111; /* Base background color for the entire page */
+    scroll-behavior: smooth;
+    height: 100%; /* For lines effect */
+    background-color: #111;
 }
 
-/* Body element base styles */
 body {
-    font-family: var(--font-secondary); /* Default font for text */
-    line-height: 1.7; /* Spacing between lines of text for readability */
-    margin: 0; /* Remove default browser margin */
-    padding: 0; /* Remove default browser padding */
-    background-color: #111; /* Dark background for the "falling lines" effect to sit on */
-    color: var(--cred-text-primary); /* Default text color */
-    font-size: 16px; /* Default font size */
-    padding-top: 70px; /* Space at the top for the fixed navigation bar */
-    position: relative; /* Needed if child elements use absolute positioning relative to the body */
-    height: 100%; /* Also important for full-height background effects */
-    overflow-y: auto; /* Allows vertical scrolling for page content */
-    overflow-x: hidden; /* Prevents horizontal scrolling, e.g., from full-width background effects */
+    font-family: var(--font-secondary);
+    line-height: 1.7;
+    margin: 0;
+    /* padding: 0; This is handled by the * reset, specific paddings are set below */
+    background-color: #111;
+    color: var(--text-color);
+    font-size: 16px;
+    padding-top: 70px; /* Adjust for sticky navbar height - for layout */
+    scroll-padding-top: 70px; /* For anchor scrolling offset */
+    position: relative;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-/* --- Animated "Falling Lines" Background --- */
-/* This section creates the animated lines that fall down the page background. */
 .lines {
-  position: fixed; /* Keeps the lines fixed in the viewport, so they don't scroll with content */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
-  display: flex; /* Arranges the individual lines horizontally */
-  justify-content: space-between; /* Distributes the lines evenly across the width */
-  z-index: 0; /* Places the lines behind other page content but above the body's solid background */
-  pointer-events: none; /* Allows mouse clicks to pass through the lines to elements underneath */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .line {
-  position: relative; /* Needed for positioning the ::after pseudo-element */
-  width: 1px; /* Each line is 1 pixel wide */
-  height: 100%; /* Lines span the full height of their container */
-  overflow: hidden; /* Hides the part of the falling animation that is outside the line's bounds */
+  position: relative;
+  width: 1px;
+  height: 100%;
+  overflow: hidden;
 }
 
-/* The ::after pseudo-element creates the actual visible "falling" part of each line */
 .line::after {
-  content: ''; /* Required for pseudo-elements */
+  content: '';
   display: block;
-  position: absolute; /* Positioned relative to its parent .line */
-  height: 15vh; /* Height of the falling gradient "drop" */
-  width: 100%; /* Full width of the parent .line (1px) */
-  top: -50%; /* Starts above the visible area */
+  position: absolute;
+  height: 15vh;
+  width: 100%;
+  top: -50%;
   left: 0;
-  /* Default gradient (white), overridden by specific line styles below */
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #ffffff 75%, #ffffff 100%);
-  animation: drop 7s 0s infinite; /* Applies the "drop" animation */
-  animation-fill-mode: forwards; /* Keeps the element at its final state after animation */
-  animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97); /* Easing for the animation */
+  animation: drop 7s 0s infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 }
 
-/* Different colors and animation delays for each of the 10 lines to create variety */
-.line:nth-child(1)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #FF4500 75%, #FF4500 100%); /* OrangeRed */
-  animation-delay: 0.5s;
-}
-.line:nth-child(2)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #32CD32 75%, #32CD32 100%); /* LimeGreen */
-  animation-delay: 1s;
-}
-.line:nth-child(3)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #1E90FF 75%, #1E90FF 100%); /* DodgerBlue */
-  animation-delay: 1.5s;
-}
-.line:nth-child(4)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #FFD700 75%, #FFD700 100%); /* Gold */
-  animation-delay: 2s;
-}
-.line:nth-child(5)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #8A2BE2 75%, #8A2BE2 100%); /* BlueViolet */
-  animation-delay: 2.5s;
-}
-.line:nth-child(6)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #20B2AA 75%, #20B2AA 100%); /* LightSeaGreen */
-  animation-delay: 3s;
-}
-.line:nth-child(7)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #DC143C 75%, #DC143C 100%); /* Crimson */
-  animation-delay: 3.5s;
-}
-.line:nth-child(8)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #00FA9A 75%, #00FA9A 100%); /* MediumSpringGreen */
-  animation-delay: 4s;
-}
-.line:nth-child(9)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #FF1493 75%, #FF1493 100%); /* DeepPink */
-  animation-delay: 4.5s;
-}
-.line:nth-child(10)::after {
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #00BFFF 75%, #00BFFF 100%); /* DeepSkyBlue */
-  animation-delay: 5s;
-}
+.line:nth-child(1)::after { background: linear-gradient(to bottom, rgba(var(--cred-accent-rgb),0) 0%, var(--cred-accent) 75%, var(--cred-accent) 100%); animation-delay: 0.5s; }
+.line:nth-child(3)::after { background: linear-gradient(to bottom, rgba(var(--cred-accent-rgb),0) 0%, var(--cred-accent) 75%, var(--cred-accent) 100%); animation-delay: 1.5s; }
+.line:nth-child(5)::after { background: linear-gradient(to bottom, rgba(var(--cred-accent-rgb),0) 0%, var(--cred-accent) 75%, var(--cred-accent) 100%); animation-delay: 2.5s; }
+.line:nth-child(7)::after { background: linear-gradient(to bottom, rgba(var(--cred-accent-rgb),0) 0%, var(--cred-accent) 75%, var(--cred-accent) 100%); animation-delay: 3.5s; }
+.line:nth-child(9)::after { background: linear-gradient(to bottom, rgba(var(--cred-accent-rgb),0) 0%, var(--cred-accent) 75%, var(--cred-accent) 100%); animation-delay: 4.5s; }
 
-/* Keyframe animation for the falling effect of the lines */
+/* More varied colors for other lines */
+.line:nth-child(2)::after { background: linear-gradient(to bottom, rgba(255,69,0,0) 0%, #FF4500 75%, #FF4500 100%); animation-delay: 1s;}
+.line:nth-child(4)::after { background: linear-gradient(to bottom, rgba(50,205,50,0) 0%, #32CD32 75%, #32CD32 100%); animation-delay: 2s;}
+.line:nth-child(6)::after { background: linear-gradient(to bottom, rgba(30,144,255,0) 0%, #1E90FF 75%, #1E90FF 100%); animation-delay: 3s;}
+.line:nth-child(8)::after { background: linear-gradient(to bottom, rgba(255,215,0,0) 0%, #FFD700 75%, #FFD700 100%); animation-delay: 4s;}
+.line:nth-child(10)::after { background: linear-gradient(to bottom, rgba(138,43,226,0) 0%, #8A2BE2 75%, #8A2BE2 100%); animation-delay: 5s;}
+
+
 @keyframes drop {
-  0% { top: -50%; } /* Start above the screen */
-  100% { top: 110%; } /* End below the screen, ensuring it passes completely */
+  0% { top: -50%; }
+  100% { top: 110%; }
 }
-/* --- End of Animated "Falling Lines" Background --- */
 
-/* Container: A common class to center content within the page width */
+
 .container {
-    width: 90%; /* Content takes up 90% of the available width */
-    max-width: 1000px; /* Maximum width of the content area */
-    margin: 0 auto; /* Centers the container horizontally */
-    padding: 20px 0; /* Vertical padding */
-    position: relative; /* Ensures container content stacks above any fixed/absolute background elements */
-    z-index: 1; /* Higher z-index than the .lines background */
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 0;
+    position: relative;
+    z-index: 1;
 }
 
-/* Navigation Bar Styles */
+/* Navbar */
 #navbar {
-    background-color: var(--cred-surface); /* Dark surface color for the navbar */
-    color: var(--cred-text-primary); /* Text color for navbar items */
-    padding: 10px 0; /* Vertical padding */
-    position: fixed; /* Makes the navbar stick to the top of the screen */
+    background-color: var(--cred-surface);
+    color: var(--cred-text-primary);
+    padding: 10px 0;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* Full width */
-    z-index: 1000; /* High z-index to keep it above other content */
-    box-shadow: var(--neumorphic-shadow-raised-light); /* Subtle shadow effect */
-    transition: top 0.3s; /* Smooth transition if navbar needs to hide/show (not currently used) */
+    width: 100%;
+    z-index: 1000;
+    box-shadow: var(--neumorphic-shadow-raised-light);
+    transition: top 0.3s;
 }
 
 #navbar .container {
-    display: flex; /* Arranges logo and links horizontally */
-    justify-content: space-between; /* Pushes logo to left, links to right */
-    align-items: center; /* Aligns items vertically in the center */
-    padding: 5px 0; /* Less vertical padding within the navbar's container */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
 }
 
 #navbar .nav-logo {
-    font-family: var(--font-primary); /* Primary font for the logo/name */
-    font-size: 1.5em; /* Larger font size for the logo */
-    color: var(--cred-text-primary);
-    text-decoration: none; /* Removes underline from the link */
-    font-weight: 700; /* Bolder font */
-    position: relative; /* For potential glow effects (currently simple hover) */
-    padding: 5px 10px;
+    display: flex; 
+    align-items: center;
+    gap: 10px; /* Space between icon and name */
+    text-decoration: none; /* Remove underline from link */
+    padding: 5px;
     border-radius: 8px;
 }
-#navbar .nav-logo:hover {
-    color: var(--cred-accent); /* Changes color to accent on hover */
+
+#navbar .nav-logo img {
+    height: 40px; 
+    width: auto;
+    transition: transform 0.3s ease;
+}
+#navbar .nav-logo:hover img {
+    transform: scale(1.1);
 }
 
+#navLogoName {
+    font-size: 1.2em; /* Adjust size as needed */
+    font-weight: 600;
+    color: var(--cred-text-primary);
+    transition: color 0.3s ease;
+}
+#navbar .nav-logo:hover #navLogoName {
+    color: var(--cred-accent);
+}
+
+
 #navbar ul {
-    list-style: none; /* Removes default bullet points from the list */
+    list-style: none;
     padding: 0;
     margin: 0;
-    display: flex; /* Arranges list items (links) horizontally */
+    display: flex;
 }
 
 #navbar ul li a {
-    color: var(--cred-text-secondary); /* Secondary text color for links */
+    color: var(--cred-text-secondary);
     text-decoration: none;
-    padding: 10px 15px; /* Padding around each link */
-    display: block; /* Makes the entire area clickable */
+    padding: 10px 15px;
+    display: block;
     font-size: 0.95em;
     border-radius: 8px;
-    position: relative; /* Needed for the ::before and ::after pseudo-elements for hover effect */
-    transition: color .5s ease; /* Smooth transition for text color change */
-    z-index: 1; /* Ensures text is above the ::after pseudo-element's background fill */
-    text-transform: uppercase; /* Makes link text uppercase */
+    position: relative;
+    transition: color .5s ease;
+    z-index: 1;
+    text-transform: uppercase;
 }
 
-/* Animated hover effect for navbar links (borders and background fill) */
-#navbar ul li a::before { /* Creates top and bottom borders on hover */
+#navbar ul li a::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    border-top: 2px solid var(--cred-accent); /* Top border with accent color */
-    border-bottom: 2px solid var(--cred-accent); /* Bottom border with accent color */
-    transform: scaleY(2); /* Initially scaled up vertically to be invisible */
-    opacity: 0; /* Initially transparent */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
-    box-sizing: border-box; /* Ensures border width is included in element's dimensions */
+    border-top: 2px solid var(--cred-accent);
+    border-bottom: 2px solid var(--cred-accent);
+    transform: scaleY(2);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    box-sizing: border-box;
 }
 
-#navbar ul li a::after { /* Creates background fill on hover */
+#navbar ul li a::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--cred-accent); /* Background fill with accent color */
-    transform: scale(0); /* Initially scaled down to be invisible */
-    opacity: 0; /* Initially transparent */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
-    z-index: -1; /* Places background fill behind the link text */
-    border-radius: inherit; /* If link has rounded corners, background will too */
+    background-color: var(--cred-accent);
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: -1;
+    border-radius: inherit;
 }
 
-#navbar ul li a:hover { /* Styles when a navigation link is hovered */
-    color: var(--cred-bg); /* Text color changes to the main dark background color for contrast */
-    font-weight: 600; /* Makes text slightly bolder */
+#navbar ul li a:hover {
+    color: var(--cred-bg);
+    font-weight: 600;
 }
-#navbar ul li a:hover::before { /* Animates borders in on hover */
+
+#navbar ul li a:hover::before {
     transform: scaleY(1);
     opacity: 1;
 }
-#navbar ul li a:hover::after { /* Animates background fill in on hover */
+
+#navbar ul li a:hover::after {
     transform: scale(1);
     opacity: 1;
 }
 
-/* Style for the currently active navigation link (based on scroll position) */
 #navbar ul li a.active {
-    color: var(--cred-accent); /* Accent color for active link text */
+    color: var(--cred-accent);
     font-weight: 600;
-    /* Does not use the ::before/::after hover effect to distinguish active state from hover state */
 }
 
-/* Header Section Styles (Top part of the page with profile info) */
+
+/* Header */
 #header {
-    background-color: transparent; /* Header background is transparent to show the "lines" effect */
+    background-color: transparent;
     color: var(--cred-text-primary);
-    padding: 60px 0 50px; /* Vertical padding */
-    text-align: center; /* Centers content like name, title */
-    position: relative; /* Stacking context */
-    z-index: 1; /* Above lines background */
+    padding: 60px 0 50px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
 }
 .header-content {
-    padding-top: 20px; /* Additional padding for content within the header */
+    padding-top: 20px;
 }
 
-/* Profile Picture Styles */
 .profile-picture-container {
-    margin-bottom: 25px; /* Space below the picture */
+    margin-bottom: 25px;
 }
-.profile-picture-wrapper { /* Wrapper for the image to apply the border glow effect */
+
+.profile-picture-wrapper {
     position: relative;
-    display: inline-block; /* Fits the wrapper to the image size */
-    border-radius: 50%; /* Makes the wrapper (and thus the glow) circular */
+    display: inline-block;
+    border-radius: 50%;
     z-index: 0;
 }
-.profile-picture-wrapper::before { /* Creates the animated rainbow glow border */
+
+.profile-picture-wrapper::before {
     content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000); /* Rainbow gradient */
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
-    top: -2px; /* Offset for glow thickness */
+    top: -2px;
     left: -2px;
-    width: calc(100% + 4px); /* Slightly larger than the image to create border effect */
+    width: calc(100% + 4px);
     height: calc(100% + 4px);
-    background-size: 400%; /* For gradient animation */
-    z-index: -1; /* Behind the profile picture image */
-    filter: blur(5px); /* Blurs the gradient to create a soft glow */
-    animation: glowing 20s linear infinite; /* Applies the "glowing" animation */
-    opacity: 0; /* Glow is initially hidden */
-    transition: opacity .3s ease-in-out; /* Smooth fade-in for the glow */
-    border-radius: inherit; /* Makes the glow circular, matching the wrapper */
-}
-.profile-picture-wrapper:hover::before { /* Show glow on hover */
-    opacity: 1;
-}
-.profile-picture { /* The actual profile image */
-    width: 160px;
-    height: 160px;
-    border-radius: 50%; /* Circular image */
-    object-fit: cover; /* Ensures image covers the area without distortion */
-    background-color: var(--cred-surface); /* Fallback background for the image area */
-    padding: 6px; /* Creates a solid inner border around the image */
-    box-shadow: var(--neumorphic-shadow-raised); /* Neumorphic shadow for 3D effect */
-    position: relative; /* Stacking context */
-    z-index: 1; /* Ensures image is on top of the ::before glow */
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: inherit;
 }
 
-/* Header text styles (Name, Title) */
-#header h1 { /* Profile Name */
+.profile-picture-wrapper:hover::before {
+    opacity: 1;
+}
+
+.profile-picture {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: var(--cred-surface);
+    padding: 6px;
+    box-shadow: var(--neumorphic-shadow-raised);
+    position: relative;
+    z-index: 1;
+}
+
+
+#header h1 {
     font-family: var(--font-primary);
     font-size: 3.2em;
     margin: 0 0 10px 0;
     font-weight: 700;
     color: var(--cred-text-primary);
 }
-#header .subtitle { /* Profile Title */
+
+#header .subtitle {
     font-size: 1.6em;
     margin: 0 0 25px 0;
     color: var(--cred-text-secondary);
 }
 
-/* Contact Information in Header */
 #header .contact-info {
-    margin-bottom: 30px; /* Space below contact info */
-    display: flex; /* Arranges contact items horizontally */
-    flex-wrap: wrap; /* Allows items to wrap to next line on smaller screens */
-    justify-content: center; /* Centers contact items */
-    gap: 15px 25px; /* Spacing between contact items (row-gap column-gap) */
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px 25px;
 }
-#header .contact-info a,
-#header .contact-info span { /* Styling for individual contact items (LinkedIn, Email, etc.) */
+
+#header .contact-info a, #header .contact-info span {
     color: var(--cred-text-secondary);
     text-decoration: none;
     font-size: 1em;
-    transition: color 0.3s ease; /* Smooth color change on hover */
+    transition: color 0.3s ease;
     position: relative;
     padding: 5px 8px;
     border-radius: 6px;
 }
 #header .contact-info a:hover {
-    color: var(--cred-accent); /* Change to accent color on hover */
+    color: var(--cred-accent);
 }
-#header .contact-info i { /* Styles for icons within contact info (e.g., LinkedIn icon) */
-    margin-right: 8px; /* Space between icon and text */
-    color: var(--cred-accent); /* Accent color for icons */
+#header .contact-info i {
+    margin-right: 8px;
+    color: var(--cred-accent);
 }
 
-/* --- Resume Download Button Styles (Glow on Hover effect) --- */
-.glow-on-hover { /* Base style for the button */
+/* Glow on Hover Button Styles */
+.glow-on-hover {
     width: 230px;
     height: 50px;
     border: none;
     outline: none;
     color: var(--cred-text-primary);
-    background: var(--cred-surface-alt); /* Button background color */
+    background: var(--cred-surface-alt);
     cursor: pointer;
-    position: relative; /* For positioning pseudo-elements and particle field */
-    z-index: 0; /* Base stacking context */
-    border-radius: 10px; /* Rounded corners */
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
     font-family: var(--font-primary);
     font-weight: 600;
     font-size: 1em;
-    display: inline-flex; /* Allows centering content within the button */
-    align-items: center;
-    justify-content: center;
-    overflow: visible; /* Allows particle field to be visible outside button bounds */
-}
-.glow-on-hover span { /* Styles for the text/icon inside the button */
-    position: relative;
-    z-index: 1; /* Keeps text above the ::after fill and particle field */
     display: inline-flex;
     align-items: center;
-    gap: 8px; /* Space between icon and text if both are present */
+    justify-content: center;
+    overflow: visible;
 }
-.glow-on-hover::before { /* Creates the animated rainbow glow border for the button */
+
+.glow-on-hover span {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.glow-on-hover::before {
     content: '';
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
     top: -2px;
     left:-2px;
     background-size: 400%;
-    z-index: -1; /* Behind the button's main content and ::after fill */
+    z-index: -1;
     filter: blur(5px);
     width: calc(100% + 4px);
     height: calc(100% + 4px);
-    animation: glowing 20s linear infinite; /* "glowing" animation defined below */
-    opacity: 0; /* Glow is initially hidden */
-    transition: opacity .3s ease-in-out; /* Smooth fade-in for glow */
-    border-radius: inherit; /* Glow follows button's rounded corners */
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
 }
-.glow-on-hover:active { /* Style when button is being clicked */
-    color: var(--cred-accent);
+
+.glow-on-hover:active {
+    color: var(--cred-text-primary);
 }
-.glow-on-hover:active::after { /* Darkens button background slightly on click */
-    background: var(--cred-surface-inset-bg);
+
+.glow-on-hover:active::after {
+    background: transparent;
 }
-.glow-on-hover:hover::before { /* Show glow border on hover */
+
+.glow-on-hover:hover::before {
     opacity: 1;
 }
-.glow-on-hover::after { /* Creates the solid background color layer of the button */
-    z-index: 0; /* Above the ::before glow, but below the text (span) */
+
+.glow-on-hover::after {
+    z-index: -1;
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: var(--cred-surface-alt); /* Matches button background */
+    background: var(--cred-surface-alt);
     left: 0;
     top: 0;
-    border-radius: inherit; /* Matches button's rounded corners */
-}
-/* --- End of Glow on Hover Button Styles --- */
-
-/* --- Magnetic Particle Field (for Resume Button Hover) --- */
-/* This creates a field of small particles that float around the button when hovered. */
-.particles-field { /* Container for the magnetic particles */
-  position: absolute;
-  inset: -100%; /* Makes the field much larger than the button itself, creating a "field" effect */
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.4s ease-out; /* Smooth fade-in for the field */
-  pointer-events: none; /* Prevents the particle field from blocking mouse events on the button */
-  z-index: 0; /* Positioned above button's ::after fill, but below button text */
-}
-.glow-on-hover:hover .particles-field { /* Show particle field when button is hovered */
-  opacity: 1;
-}
-.magnetic-particle { /* Style for individual floating particles */
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background-color: var(--cred-accent); /* Particles use accent color */
-  border-radius: 50%; /* Circular particles */
-  /* Animation (name, duration, delay, etc.) is set by JavaScript for variety */
-}
-/* Keyframe animation for the floating magnetic particles */
-@keyframes magneticParticleFloat {
-  0% {
-    transform: translate(var(--x), var(--y)) scale(0) translateY(0px); /* Start scaled down, at random offset */
-    opacity: 0;
-  }
-  20% { /* Fade in and move slightly */
-    opacity: 0.7;
-    transform: scale(1) translateY(-5px);
-  }
-  80% { /* Continue to be visible and move */
-    opacity: 0.7;
-    transform: scale(1) translateY(5px);
-  }
-  100% {
-    transform: translate(calc(var(--x) * -1), calc(var(--y) * -1)) scale(0) translateY(10px); /* End scaled down, at opposite offset */
-    opacity: 0;
-  }
-}
-/* --- End of Magnetic Particle Field --- */
-
-/* --- General Highlight Glow on Hover (used for some links like footer contacts) --- */
-/* This creates a more diffuse, softer glow compared to the button/profile picture border glow. */
-.highlight-glow-on-hover {
-    position: relative; /* Needed for positioning the ::before pseudo-element */
-}
-.highlight-glow-on-hover::before { /* Creates the diffuse glow */
-    content: '';
-    position: absolute;
-    left: -4px;
-    top: -4px;
-    width: calc(100% + 8px);
-    height: calc(100% + 8px);
-    border-radius: inherit; /* Glow follows element's shape */
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000); /* Rainbow gradient */
-    background-size: 400%; /* For gradient animation */
-    filter: blur(6px); /* Larger blur for a softer effect */
-    z-index: -1; /* Behind the element's content */
-    opacity: 0; /* Initially hidden */
-    transition: opacity .3s ease-in-out; /* Smooth fade-in */
-    animation: glowing 20s linear infinite; /* "glowing" animation */
-}
-.highlight-glow-on-hover:hover::before { /* Show glow on hover */
-    opacity: 0.7; /* Semi-transparent glow */
-}
-/* --- End of Highlight Glow on Hover --- */
-
-/* --- Holographic Effect for Cards (Projects, Skills, Education, etc.) --- */
-/* This creates a sweeping light sheen effect on cards when hovered. */
-.holographic-effect-card {
-    position: relative; /* Needed for ::before pseudo-element and z-indexing content */
-    overflow: hidden; /* Crucial: hides the parts of the sheen that are outside the card */
-    transition: transform 0.5s ease, box-shadow 0.5s ease; /* Smooth transition for scale and shadow on hover */
-    /* Base background-color and border-radius are set on individual card type styles (e.g., .project-card) */
-}
-.holographic-effect-card::before { /* Creates the sweeping light sheen */
-    content: '';
-    position: absolute;
-    top: -50%; /* Starts above the card */
-    left: -50%; /* Starts to the left of the card */
-    width: 200%; /* Wide enough to sweep across the card */
-    height: 200%; /* Tall enough to sweep across the card */
-    /* Diagonal gradient creating the light band effect */
-    background: linear-gradient(
-        0deg, /* Angle of the gradient itself (vertical) */
-        transparent,
-        transparent 40%,
-        rgba(var(--cred-accent-rgb), 0.3) 48%, /* Main light band (accent color, semi-transparent) */
-        rgba(var(--cred-accent-rgb), 0.3) 52%,
-        transparent 60%,
-        transparent
-    );
-    transform: rotate(-45deg); /* Rotates the entire pseudo-element to make the band sweep diagonally */
-    transition: opacity 0.4s ease, transform 0.6s ease-out; /* Smooth animation for opacity and movement */
-    opacity: 0; /* Sheen is initially hidden */
-    z-index: 1; /* Positioned above the card's background but below its content */
-    pointer-events: none; /* Prevents the sheen from interfering with mouse hovers on card content */
-}
-.holographic-effect-card:hover { /* Styles when a holographic card is hovered */
-    transform: scale(1.03); /* Slightly scales up the card */
-    box-shadow: 0 0 20px rgba(var(--cred-accent-rgb), 0.5); /* Adds a shadow using accent color */
-}
-.holographic-effect-card:hover::before { /* Animates the sheen in on hover */
-    opacity: 1; /* Makes the sheen visible */
-    transform: rotate(-45deg) translateY(70%); /* Moves the sheen diagonally across the card */
+    border-radius: 10px;
 }
 
-/* Ensures content within holographic cards (text, icons) is visible above the sheen effect */
-.skill-category > *,
-.project-card > *,
-.education-entry > *,
-#awardsList li > *, /* If award list items have child elements for content */
-.testimonial-card > * {
-    position: relative; /* Needed for z-index to take effect */
-    z-index: 2; /* Places content above the z-index: 1 sheen */
+.glow-on-hover:disabled {
+    background: var(--medium-gray);
+    color: var(--cred-text-secondary);
+    cursor: not-allowed;
 }
-#awardsList li { /* Special case for award list items if they directly contain text */
-     position: relative;
-     z-index: 2; /* Ensures text in <li> is above the sheen */
+.glow-on-hover:disabled::before {
+    opacity: 0; /* No glow when disabled */
 }
-/* --- End of Holographic Effect Card --- */
 
-/* General "glowing" animation for rainbow gradients (used by buttons, profile pic glow) */
+
 @keyframes glowing {
     0% { background-position: 0 0; }
-    50% { background-position: 400% 0; } /* Moves the gradient */
-    100% { background-position: 0 0; } /* Resets gradient position for seamless loop */
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
 }
 
-/* --- Particle Effect for Resume Button CLICK --- */
-/* These styles are for the burst of particles when the resume button is clicked. */
+
+/* Particle Burst Effect */
 .particle {
-    position: fixed; /* Positioned relative to the viewport for consistent burst origin */
-    background-color: var(--cred-accent); /* Particles use accent color */
-    border-radius: 50%; /* Circular particles */
-    pointer-events: none; /* Particles don't interact with mouse */
-    z-index: 9999; /* Very high z-index to appear on top of everything */
-    opacity: 1; /* Initially fully visible */
-    animation-name: particleBurst; /* Applies the "particleBurst" animation */
-    animation-timing-function: ease-out; /* Easing for the animation */
-    animation-fill-mode: forwards; /* Particle stays at its final (invisible) state */
-    /* Size, position, and animation duration are set by JavaScript */
+    position: fixed; /* Position relative to viewport */
+    background-color: var(--cred-accent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleBurst 0.8s ease-out forwards;
+    pointer-events: none; /* Particles should not interfere with clicks */
+    z-index: 2000; /* Above most other elements */
 }
-/* Keyframe animation for the particle burst on click */
+
 @keyframes particleBurst {
-    0% { /* Start of animation */
-        transform: translate(0, 0) scale(1); /* Start at original position and size */
+    0% {
+        transform: translate(0, 0) scale(1);
         opacity: 1;
     }
-    100% { /* End of animation */
-        transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(0); /* Move to random offset (set by JS) and shrink to nothing */
-        opacity: 0; /* Fade out */
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
     }
 }
-/* --- End of Particle Click Effect Styles --- */
 
-/* General Button Styles (Neumorphic - can be used for other buttons if needed) */
-.btn {
-    display: inline-block;
-    padding: 14px 28px;
-    font-family: var(--font-primary);
-    font-size: 1em;
-    font-weight: 600;
-    text-decoration: none;
-    border-radius: 12px; /* Rounded corners */
-    transition: all 0.2s ease-out; /* Smooth transitions for hover/active states */
-    cursor: pointer;
-    border: none;
-    background-color: var(--cred-surface); /* Button background color */
-    color: var(--cred-text-primary); /* Button text color */
-    box-shadow: var(--neumorphic-shadow-raised); /* Raised neumorphic shadow */
-}
-.btn:hover { /* Style when button is hovered */
-    box-shadow: var(--neumorphic-shadow-pressed); /* Pressed neumorphic shadow */
-    color: var(--cred-accent); /* Text color changes to accent */
-    transform: translateY(1px); /* Slight downward movement */
-}
-.btn:active { /* Style when button is being clicked */
-    box-shadow: var(--neumorphic-shadow-pressed);
-    transform: translateY(2px); /* Further downward movement */
-}
-.btn i { /* Style for icons inside these general buttons */
-    margin-right: 8px;
+/* Magnetic Particle Field */
+#magneticParticleField {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Particles should stay within button bounds */
+    border-radius: inherit; /* Match button's border-radius */
+    pointer-events: none; /* Ensure field doesn't block button interaction */
+    z-index: -1; /* Behind button text/icon, but above ::before glow */
 }
 
-/* Styles for Page Sections (Objective, Skills, Experience, etc.) */
+.magnetic-particle {
+    position: absolute;
+    background-color: rgba(var(--cred-accent-rgb), 0.6); /* Slightly transparent */
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(var(--cred-accent-rgb), 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation-name: magneticParticleFloat; /* Base animation */
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+.glow-on-hover:hover .magnetic-particle {
+    opacity: 1; /* Show particles on hover */
+}
+
+@keyframes magneticParticleFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(var(--x), var(--y)); }
+}
+
+/* Sections */
 .section {
-    padding: 60px 0; /* Vertical padding for sections */
-    border-bottom: 1px solid var(--cred-surface); /* Subtle border between sections */
-    background-color: transparent; /* Section backgrounds are transparent to show the "lines" effect */
-    position: relative; /* Stacking context */
-    z-index: 1; /* Ensures section content is above the fixed "lines" background */
+    padding: 60px 0;
+    background-color: transparent; /* Sections transparent over lines background */
+    position: relative;
+    z-index: 1;
 }
-.section:last-of-type { /* Remove border from the very last section */
-    border-bottom: none;
+.section:nth-of-type(even) {
+   /* background-color: var(--cred-surface-inset-bg); /* Slightly different bg for visual rhythm, if desired */
 }
 
-.section h2 { /* Styles for main headings within sections */
+.section h2 {
     font-family: var(--font-primary);
     font-size: 2.5em;
     color: var(--cred-text-primary);
-    margin-bottom: 50px; /* Space below the heading */
-    text-align: center; /* Center-aligns section headings */
+    margin-bottom: 40px;
+    text-align: center;
     font-weight: 700;
 }
-.section h2 i { /* Styles for icons within section headings */
-    margin-right: 12px;
+.section h2 i {
+    margin-right: 10px;
     color: var(--cred-accent);
 }
 
-/* Career Objective Section Specific Styles */
-#objective p {
-    font-size: 1.2em;
-    text-align: center;
-    max-width: 800px; /* Limits width for better readability */
-    margin: 0 auto; /* Centers the paragraph */
+.section p {
+    font-size: 1.1em;
     color: var(--cred-text-secondary);
+    margin-bottom: 20px;
 }
 
-/* Base Neumorphic Card Style (Not actively used if cards have holographic effect, but kept as a utility) */
-.neumorphic-card {
-    background-color: var(--cred-surface);
-    padding: 25px;
+/* Holographic Card Effect */
+.holographic-effect-card {
+    background: var(--cred-surface);
     border-radius: 15px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
     box-shadow: var(--neumorphic-shadow-raised);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
+    z-index: 1; /* Ensure content is above pseudo-elements */
 }
 
-/* Skills Section Styles */
-.skills-grid { /* Container for skill categories */
-    display: flex; /* Arranges skill categories horizontally */
-    flex-wrap: wrap; /* Allows categories to wrap on smaller screens */
-    gap: 30px; /* Spacing between skill categories */
-    justify-content: space-around; /* Distributes categories evenly */
+.holographic-effect-card::before,
+.holographic-effect-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none; /* Important for interaction */
+    z-index: 0; /* Behind content */
 }
-.skill-category { /* Styling for individual skill category blocks (Core, Technical) */
-    background-color: var(--cred-surface); /* Card background */
-    padding: 30px;
-    border-radius: 20px; /* More rounded corners for these cards */
-    box-shadow: var(--neumorphic-shadow-raised); /* Base shadow (hover handled by holographic effect) */
-    flex: 1; /* Allows categories to grow and fill space */
-    min-width: 300px; /* Minimum width before wrapping */
-    /* position: relative; is now part of .holographic-effect-card */
+
+.holographic-effect-card::before {
+    background: linear-gradient(
+        135deg,
+        rgba(var(--cred-accent-rgb), 0.15) 0%,
+        rgba(var(--cred-accent-rgb), 0.05) 20%,
+        transparent 50%,
+        rgba(128,0,128, 0.1) 70%, /* Adding a touch of purple */
+        rgba(0,128,255, 0.15) 100% /* Adding a touch of blue */
+    );
+    transform: translateX(-10%) translateY(-10%) rotate(0deg); /* Slight offset */
 }
-.skill-category h3 { /* Headings within skill categories (e.g., "Core Skills") */
+
+.holographic-effect-card:hover::before {
+    opacity: 1;
+    animation: holographicShimmer 8s linear infinite;
+}
+
+@keyframes holographicShimmer {
+    0% { transform: translateX(-10%) translateY(-10%) rotate(0deg); }
+    25% { transform: translateX(0%) translateY(0%) rotate(5deg); }
+    50% { transform: translateX(10%) translateY(10%) rotate(0deg); }
+    75% { transform: translateX(0%) translateY(0%) rotate(-5deg); }
+    100% { transform: translateX(-10%) translateY(-10%) rotate(0deg); }
+}
+
+.holographic-effect-card > *:not(::before):not(::after) {
+    position: relative; /* Ensure text, etc., is above the shimmer */
+    z-index: 2;
+}
+
+/* --- Specific Sections --- */
+
+/* Objective */
+#objective p {
+    text-align: center;
+    font-size: 1.2em;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--cred-text-primary); /* More prominent */
+}
+
+/* Skills */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.skill-category {
+    /* holographic-effect-card applied */
+}
+
+.skill-category h3 {
     font-family: var(--font-primary);
-    color: var(--cred-text-primary);
-    margin-top: 0;
-    margin-bottom: 25px;
-    border-bottom: 2px solid var(--cred-accent); /* Accent color underline */
-    padding-bottom: 12px;
+    color: var(--cred-accent);
+    margin-bottom: 15px;
     font-size: 1.4em;
+    border-bottom: 2px solid var(--cred-accent-darker);
+    padding-bottom: 8px;
 }
-.skill-category ul { /* List of skills */
+
+.skill-category ul {
     list-style: none;
     padding: 0;
 }
-.skill-category ul li { /* Individual skill items */
-    background-color: var(--cred-surface-inset-bg); /* Darker inset background for skill pills */
+
+.skill-category ul li {
+    margin-bottom: 10px;
+    font-size: 1em;
     color: var(--cred-text-secondary);
-    padding: 12px 18px;
-    margin-bottom: 12px;
-    border-radius: 25px; /* Pill shape */
-    font-size: 0.95em;
-    box-shadow: var(--neumorphic-shadow-pressed); /* Pressed effect for skill pills */
-    transition: color 0.3s ease;
-    position: relative; /* For stacking context if needed, though simple text content here */
+    padding: 8px 12px;
+    background-color: var(--cred-surface-inset-bg);
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
 }
 .skill-category ul li:hover {
-    color: var(--cred-accent); /* Text color changes to accent on hover */
+    background-color: var(--cred-accent);
+    color: var(--cred-bg);
 }
 
-/* Experience Section - Timeline Styles */
-.experience-timeline { /* Main container for the timeline */
-    position: relative; /* Needed for positioning the central line and dots */
+/* Experience Timeline */
+.experience-timeline {
+    position: relative;
     max-width: 800px;
     margin: 0 auto;
+    padding: 20px 0;
 }
-.experience-timeline::before { /* Creates the central vertical line of the timeline */
+
+.experience-timeline::before { /* The central line */
     content: '';
     position: absolute;
-    left: 128px; /* Position of the line from the left */
-    top: 10px;
-    bottom: 10px;
-    width: 4px; /* Thickness of the line */
-    background-color: var(--cred-surface-alt); /* Color of the line */
+    left: 20px; /* Position of the line */
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: var(--cred-surface-alt);
     border-radius: 2px;
-    z-index: 0; /* Behind timeline items */
 }
-.timeline-item { /* Container for each experience entry */
+
+.timeline-item {
     position: relative;
     margin-bottom: 30px;
+    padding-left: 60px; /* Space for date and dot */
 }
-.timeline-item:last-child {
-    margin-bottom: 0;
-}
-.timeline-item-date { /* Date for each experience entry */
+
+.timeline-dot {
+    content: '';
     position: absolute;
-    left: 0;
-    top: 2px;
-    width: 110px; /* Width of the date area */
-    text-align: right; /* Aligns date text to the right, towards the central line */
-    font-size: 0.9em;
+    left: 12px; /* Centered on the line (20px - 4px/2 - 6px radius) */
+    top: 5px; /* Align with text */
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--cred-accent);
+    border: 3px solid var(--cred-bg);
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.timeline-item-date {
+    position: absolute;
+    left: 60px; /* To the right of the dot and padding */
+    top: 3px;
+    font-weight: bold;
     color: var(--cred-text-secondary);
-    font-weight: 600;
-    padding-right: 10px; /* Space between date and the central line/dot */
-    transition: color 0.3s ease;
+    font-size: 0.9em;
+    background-color: var(--cred-surface);
+    padding: 3px 8px;
+    border-radius: 4px;
+    width: auto; /* Adjust to content */
+    text-align: left;
+    transform: translateX(-130px); /* Push to the left of the line */
 }
-.timeline-dot { /* Circular dot on the central timeline for each entry */
-    position: absolute;
-    left: 120px; /* Aligns with the central line */
-    top: 4px;
-    width: 20px;
-    height: 20px;
-    background-color: var(--cred-surface-alt); /* Dot color */
-    border-radius: 50%; /* Circular dot */
-    border: 3px solid var(--cred-bg); /* Border color matches main page dark background */
-    box-shadow: 0 0 0 3px var(--cred-surface-alt); /* Outer ring effect */
-    z-index: 1; /* Above the central line */
-    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-}
-.timeline-content { /* Card containing details for each experience entry */
-    margin-left: 150px; /* Space to the right of the central line/dot */
-    background-color: var(--cred-surface); /* Card background */
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: var(--neumorphic-shadow-raised);
+
+.timeline-content {
+    background-color: var(--cred-surface);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--neumorphic-shadow-raised-light);
     position: relative;
-    transition: box-shadow 0.3s ease;
-    cursor: pointer; /* Indicates it's clickable to expand details */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.timeline-content:hover { /* Subtle shadow change on hover over the content card */
-     box-shadow: 8px 8px 16px rgba(var(--neumorphic-shadow-dark-rgb), 0.35),
-                -8px -8px 16px rgba(var(--neumorphic-shadow-light-rgb), 0.06);
+.timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--neumorphic-shadow-raised);
 }
-.timeline-content h3 { /* Title within the experience card (e.g., "Software Engineer") */
+
+.timeline-content h3 {
     font-family: var(--font-primary);
     color: var(--cred-accent);
     margin-top: 0;
     margin-bottom: 5px;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
-.timeline-content .company-name { /* Company name within the experience card */
-    color: var(--cred-text-secondary);
-    font-style: italic;
-    margin-bottom: 15px;
+.timeline-content .company-name {
+    color: var(--cred-text-primary);
+    font-weight: bold;
     font-size: 1em;
     display: block;
-}
-.timeline-details { /* Container for the collapsible description points */
-    max-height: 0; /* Initially collapsed */
-    overflow: hidden; /* Hides content when collapsed */
-    opacity: 0; /* Initially transparent */
-    margin-top: 0;
-    /* Smooth transition for expanding/collapsing */
-    transition: max-height 0.5s cubic-bezier(0.25, 0.1, 0.25, 1),
-                opacity 0.3s ease-in-out 0.1s,
-                margin-top 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-/* Styles for an "active" (expanded) timeline item */
-.timeline-item.active .timeline-dot { /* Active dot changes color and size */
-    background-color: var(--cred-accent);
-    box-shadow: 0 0 0 4px var(--cred-accent);
-    transform: scale(1.1);
-    border: 3px solid #111; /* Matches the new body background if different from --cred-bg */
-}
-.timeline-item.active .timeline-item-date { /* Active date changes color */
-    color: var(--cred-accent);
-    font-weight: 700;
-}
-.timeline-item.active .timeline-details { /* Expands details section */
-    max-height: 1200px; /* Large enough to fit content */
-    opacity: 1;
-    margin-top: 20px;
-}
-.timeline-item.active .timeline-content { /* Stronger shadow for active card */
-    box-shadow: 8px 8px 16px rgba(var(--neumorphic-shadow-dark-rgb), 0.4),
-                -8px -8px 16px rgba(var(--neumorphic-shadow-light-rgb), 0.07);
-}
-.timeline-details ul { /* List of description points */
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
-.timeline-details ul li { /* Individual description point */
     margin-bottom: 10px;
-    font-size: 0.95em;
-    padding-left: 22px; /* Space for custom bullet point */
-    position: relative;
-    line-height: 1.6;
-    color: var(--cred-text-secondary);
-}
-.timeline-details ul li:hover {
-    color: var(--cred-text-primary);
-}
-.timeline-details ul li::before { /* Custom bullet point (Font Awesome icon) */
-    content: "\f105"; /* Unicode for angle-right icon */
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    position: absolute;
-    left: 0;
-    top: 2px;
-    color: var(--cred-accent);
-    font-size: 0.9em;
-}
-.timeline-details ul li strong { /* For bolding text within description points */
-    font-weight: 600;
-    color: var(--cred-text-primary);
 }
 
-/* Projects Section Styles */
-.project-grid { /* Grid container for project cards */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid columns */
-    gap: 30px; /* Spacing between project cards */
+.timeline-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    padding-top: 0;
 }
-.project-card { /* Individual project card */
-    background-color: var(--cred-surface);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: var(--neumorphic-shadow-raised); /* Base shadow (hover handled by holographic effect) */
-    display: flex;
-    flex-direction: column; /* Stacks title and description vertically */
-    /* position: relative; is now part of .holographic-effect-card */
-}
-.project-card h4 { /* Project title */
-    font-family: var(--font-primary);
-    color: var(--cred-accent);
+.timeline-details ul {
+    list-style-type: disc;
+    padding-left: 20px;
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 1.4em;
 }
-.project-card p { /* Project description */
-    font-size: 0.95em;
-    flex-grow: 1; /* Allows description to take available space if cards have varying content length */
-    margin-bottom: 0;
-    color: var(--cred-text-secondary);
-}
-
-/* Education Section Styles */
-.education-entry { /* Card for each education item */
-    background-color: var(--cred-surface);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: var(--neumorphic-shadow-raised); /* Base shadow */
-    text-align: center; /* Centers text within the education card */
-    max-width: 600px; /* Limits width */
-    margin: 0 auto; /* Centers the card itself */
-    /* position: relative; is now part of .holographic-effect-card */
-}
-.education-entry:not(:last-child) { /* Adds space between multiple education entries */
-    margin-bottom: 20px;
-}
-.education-entry h3 { /* Degree name */
-    font-family: var(--font-primary);
-    color: var(--cred-accent);
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.5em;
-}
-.education-entry p { /* Institution and year */
+.timeline-details ul li {
     margin-bottom: 8px;
-    font-size: 1em;
+    font-size: 0.95em;
     color: var(--cred-text-secondary);
 }
 
-/* Awards Section Styles */
-#awards ul { /* List of awards */
-    list-style: none;
-    padding: 0;
-    text-align: center;
+/* Active state for timeline item */
+.timeline-item.active .timeline-dot {
+    transform: scale(1.3);
 }
-#awards ul li { /* Individual award item */
-    background-color: var(--cred-surface);
-    padding: 20px 25px;
-    margin: 0 auto 15px auto; /* Centers items and adds bottom margin */
-    border-radius: 15px;
-    box-shadow: var(--neumorphic-shadow-raised); /* Base shadow */
-    font-size: 1.05em;
-    max-width: 700px;
-    /* position: relative; is now part of .holographic-effect-card */
+.timeline-item.active .timeline-content {
+    box-shadow: 0 0 20px rgba(var(--cred-accent-rgb), 0.3), var(--neumorphic-shadow-raised);
+}
+.timeline-item.active .timeline-details {
+    max-height: 500px; /* Adjust as needed */
+    padding-top: 15px;
 }
 
-/* Testimonials Section Styles */
-#testimonials .testimonial-grid { /* Grid for testimonial cards */
+/* Projects */
+.project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
-.testimonial-card { /* Individual testimonial card */
-    background-color: var(--cred-surface);
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: var(--neumorphic-shadow-raised); /* Base shadow */
-    /* position: relative; is now part of .holographic-effect-card */
+.project-card {
+    /* holographic-effect-card applied */
 }
-.testimonial-card p { /* Quote text */
-    font-style: italic;
-    margin-bottom: 20px;
-    color: var(--cred-text-secondary);
+.project-card h4 {
+    font-family: var(--font-primary);
+    color: var(--cred-accent);
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+.project-card p {
     font-size: 1em;
-    line-height: 1.6;
-}
-.testimonial-card p:last-child {
-    margin-bottom: 0;
-}
-.testimonial-card .testimonial-author { /* Author of the testimonial */
-    font-style: normal;
-    font-weight: 600;
-    color: var(--cred-text-primary);
-    text-align: right; /* Aligns author to the right */
-}
-.testimonial-card .testimonial-author::before { /* Adds an em-dash before the author's name */
-    content: "— ";
+    color: var(--cred-text-secondary);
 }
 
-/* Footer Styles */
+
+/* Education */
+#educationList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.education-entry {
+    /* holographic-effect-card applied */
+}
+.education-entry h3 {
+    font-family: var(--font-primary);
+    color: var(--cred-accent);
+    margin-bottom: 5px;
+    font-size: 1.3em;
+}
+.education-entry p {
+    font-size: 1em;
+    color: var(--cred-text-secondary);
+    margin-bottom: 5px;
+}
+.education-entry p em {
+    color: var(--cred-text-primary);
+    font-style: normal;
+}
+
+/* Awards */
+#awardsList {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+#awardsList li {
+    /* holographic-effect-card applied */
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--cred-text-primary);
+}
+
+/* Testimonials */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.testimonial-card {
+    /* holographic-effect-card applied */
+}
+.testimonial-card p {
+    font-size: 1em;
+    color: var(--cred-text-secondary);
+    margin-bottom: 15px;
+    font-style: italic;
+}
+.testimonial-card .testimonial-author {
+    font-size: 1em;
+    color: var(--cred-accent);
+    font-weight: bold;
+    text-align: right;
+    font-style: normal;
+}
+
+/* Footer */
 footer {
-    background-color: #111; /* Matches the new body background for seamless look */
+    background-color: var(--cred-surface);
     color: var(--cred-text-secondary);
     text-align: center;
-    padding: 40px 0;
-    margin-top: 40px; /* Space above the footer */
-    border-top: 1px solid var(--cred-surface); /* Subtle top border */
-    position: relative; /* Stacking context */
-    z-index: 1; /* Above lines background */
+    padding: 30px 0;
+    position: relative;
+    z-index: 1;
+    margin-top: 40px;
+    border-top: 1px solid var(--medium-gray);
 }
 footer p {
-    margin: 8px 0;
-    font-size: 0.9em;
+    margin-bottom: 8px;
+    font-size: 0.95em;
 }
-footer a { /* Links in the footer (e.g., social media) */
+footer a {
     color: var(--cred-accent);
     text-decoration: none;
-    position: relative;
-    padding: 3px 6px;
-    border-radius: 4px;
+    transition: color 0.3s ease;
 }
 footer a:hover {
-    text-decoration: underline;
     color: var(--cred-accent-darker);
 }
+footer #footerLinkedInLink, footer #footerEmailLink {
+    font-size: 1.5em;
+    margin: 0 10px;
+}
 
-/* Back to Top Button Styles */
+
+/* Back to Top Button */
 #backToTopBtn {
-    position: fixed; /* Sticks to the bottom-right of the screen */
-    bottom: 30px;
-    right: 30px;
-    z-index: 999; /* High z-index to stay on top */
-    border: none;
-    outline: none;
-    background-color: var(--cred-surface); /* Button background */
-    color: var(--cred-accent); /* Icon color */
-    cursor: pointer;
-    width: 50px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px; /* Ensure it's circular if width/height match */
     height: 50px;
-    border-radius: 50%; /* Circular button */
-    font-size: 1.3em; /* Icon size */
-    box-shadow: var(--neumorphic-shadow-raised); /* Neumorphic shadow */
-    display: flex; /* For centering the icon inside */
+    background-color: var(--cred-surface-alt);
+    color: var(--cred-text-primary);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0; /* Initially hidden (controlled by JavaScript via .visible class) */
-    visibility: hidden; /* Initially hidden */
-    transition: all 0.2s ease-out, opacity 0.3s ease, visibility 0.3s ease; /* Smooth transitions */
-}
-#backToTopBtn.visible { /* Class added by JavaScript to show the button */
-    opacity: 1;
-    visibility: visible;
-}
-#backToTopBtn:hover { /* Hover style */
-    box-shadow: var(--neumorphic-shadow-pressed);
-    color: var(--cred-accent-darker);
-    transform: translateY(1px);
-}
-#backToTopBtn:active { /* Active (click) style */
-    box-shadow: var(--neumorphic-shadow-pressed);
-    transform: translateY(2px);
-}
-
-/* Responsive Design - Adjustments for different screen sizes */
-
-/* For tablets and smaller desktops (up to 992px wide) */
-@media (max-width: 992px) {
-    #navbar ul { /* Hide the main navigation links */
-         display: none; /* A common pattern is to replace this with a hamburger menu for mobile */
-    }
-    #navbar .container { /* Center the logo when links are hidden */
-        justify-content: center;
-    }
-     body { /* Remove top padding if navbar changes or is not fixed */
-        padding-top: 0;
-    }
-    #navbar { /* Center the navbar content (logo) */
-      display: flex;
-      justify-content: center;
-    }
-}
-
-/* For smaller tablets and mobile phones (up to 768px wide) */
-@media (max-width: 768px) {
-    body {
-        font-size: 15px; /* Slightly smaller base font size */
-        padding-top: 0; /* Remove top padding if navbar is no longer fixed */
-    }
-    #navbar { /* Navbar becomes part of normal page flow, not fixed */
-        position: relative;
-        box-shadow: none; /* Remove shadow if not fixed */
-    }
-    #header { /* Reduce top padding for header */
-        padding-top: 30px;
-    }
-    #header h1 { font-size: 2.6em; }
-    #header .subtitle { font-size: 1.4em; }
-    .section h2 { font-size: 2.1em; } /* Smaller section headings */
-
-    .skills-grid { flex-direction: column; } /* Stack skill categories vertically */
-    .skill-category { min-width: auto; } /* Allow skill categories to take full width */
-
-    #header .contact-info { /* Stack contact items vertically */
-        flex-direction: column;
-        gap: 15px;
-    }
-    #header .contact-info a, #header .contact-info span { padding: 8px 10px; }
-
-    .glow-on-hover { /* Slightly smaller resume button */
-        width: 200px;
-        height: 45px;
-        font-size: 0.95em;
-    }
-
-    /* Responsive adjustments for the Experience Timeline */
-    .experience-timeline::before { left: 18px; } /* Move central line closer to left */
-    .timeline-item-date { /* Date moves above the content card */
-        position: relative;
-        left: auto;
-        top: auto;
-        width: auto;
-        text-align: left;
-        padding-right: 0;
-        margin-bottom: 8px;
-        font-size: 0.85em;
-        color: var(--cred-accent);
-    }
-    .timeline-dot { left: 10px; } /* Move dot closer to left */
-    .timeline-content {
-        margin-left: 40px; /* Reduce left margin for content card */
-        padding: 20px;
-    }
-    .timeline-content h3 { font-size: 1.3em; }
-
-    /* Stack project and testimonial cards vertically */
-    .project-grid, #testimonials .testimonial-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Smaller Back to Top button */
-    #backToTopBtn {
-        bottom: 20px;
-        right: 20px;
-        width: 45px;
-        height: 45px;
-        font-size: 1.1em;
-    }
-}
-
-/* For very small mobile screens (up to 480px wide) */
-@media (max-width: 480px) {
-    #header h1 { font-size: 2.2em; }
-    #header .subtitle { font-size: 1.2em; }
-    .section h2 { font-size: 1.8em; }
-    .glow-on-hover { /* Even smaller resume button */
-        width: 180px;
-        height: 40px;
-        font-size: 0.9em;
-    }
-}
-
-/* Ensuring visibility of BackToTopBtn is clearly handled by .visible class added by JS */
-#backToTopBtn {
+    font-size: 1.5em;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    z-index: 900;
+    /* Apply glow-on-hover styles by inheriting relevant parts or direct application */
+    /* Assuming .glow-on-hover structure for ::before and ::after if needed */
 }
 #backToTopBtn.visible {
     opacity: 1;
     visibility: visible;
 }
+#backToTopBtn:hover {
+    background-color: var(--cred-accent);
+    color: var(--cred-bg);
+    transform: scale(1.1);
+}
 
-/* Ensure main page content areas (header, main, footer) are stacked above the fixed lines background */
-main, header, footer {
-    position: relative; /* Creates a stacking context */
-    z-index: 1; /* Higher z-index than the .lines background (which is z-index: 0) */
+/* Highlight Glow on Hover for links/small elements */
+.highlight-glow-on-hover {
+    position: relative;
+    transition: color 0.3s ease;
+    /* Inherits color from parent, or set explicitly if needed */
+}
+.highlight-glow-on-hover::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -5px; /* Adjust for underline position */
+    width: 0;
+    height: 2px;
+    background-color: var(--cred-accent);
+    transition: width 0.3s ease, left 0.3s ease;
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(var(--cred-accent-rgb), 0.7);
+}
+.highlight-glow-on-hover:hover::before {
+    width: 100%;
+    left: 0;
+}
+.highlight-glow-on-hover:hover {
+    color: var(--cred-accent); /* Text color changes on hover */
+}
+
+
+/* Error Message Styling */
+.error-message {
+    color: var(--cred-text-primary);
+    background-color: var(--cred-surface-alt);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 40px auto;
+    max-width: 800px;
+    border: 1px solid var(--cred-accent-darker);
+    box-shadow: 0 0 20px rgba(var(--cred-accent-rgb), 0.1);
+}
+.error-message h2 {
+    color: var(--cred-accent);
+}
+.error-message ul li {
+    color: var(--cred-text-secondary);
+}
+
+
+/* Lottie Animations */
+.lottie-button-icon {
+    width: 28px;
+    height: 28px;
+    display: inline-block; /* Helps with alignment in flex containers */
+}
+
+.lottie-cvsync-loading {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 10px auto; /* Center above text */
+    display: block;
+}
+
+.lottie-upload-prompt-animation {
+    width: 80px; /* Increased size */
+    height: 80px; /* Increased size */
+    margin: 0 auto 15px auto; /* Centered with bottom margin */
+    display: block;
+}
+
+
+/* CVSync Section Styles */
+#cvsync {
+    /* Uses .section defaults */
+}
+
+.cvsync-description {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--cred-text-secondary);
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cvsync-form {
+    background-color: var(--cred-surface);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: var(--neumorphic-shadow-raised);
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+.cvsync-input-group {
+    margin-bottom: 25px;
+}
+
+.cvsync-label {
+    display: block;
+    font-family: var(--font-primary);
+    color: var(--cred-accent);
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-align: center; /* Center the label text like "1. Upload Your Resume (PDF)" */
+}
+.cvsync-label i {
+    margin-right: 8px;
+}
+
+/* Custom File Input */
+.custom-file-input-wrapper {
+    display: flex;
+    flex-direction: column; /* Stack Lottie, button, filename */
+    align-items: center; /* Center items horizontally */
+    gap: 10px; /* Vertical gap between items */
+}
+.cvsync-file-input-hidden {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.cvsync-file-input-button { /* This is the <label> styled as a button */
+    background-color: var(--cred-accent);
+    color: var(--cred-bg);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    display: inline-flex; 
+    align-items: center;
+    justify-content: center; /* Center text within button */
+    min-width: 150px; /* Give button a decent width */
+    text-align: center;
+}
+.cvsync-file-input-button:hover {
+    background-color: var(--cred-accent-darker);
+}
+.file-name-display {
+    font-size: 0.95em;
+    color: var(--cred-text-secondary);
+    text-align: center; /* Center filename text */
+    width: 100%; /* Allow it to take width for centering */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cvsync-textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: var(--cred-surface-inset-bg);
+    border: 1px solid var(--medium-gray);
+    border-radius: 8px;
+    color: var(--cred-text-primary);
+    font-family: var(--font-secondary);
+    font-size: 1em;
+    resize: vertical;
+    min-height: 150px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cvsync-textarea:focus {
+    outline: none;
+    border-color: var(--cred-accent);
+    box-shadow: 0 0 0 2px rgba(var(--cred-accent-rgb), 0.3);
+}
+
+.cvsync-button { /* Uses .glow-on-hover */
+    display: block; /* Make it full width or centered */
+    margin: 20px auto 0 auto; /* Center if not full width */
+}
+
+.cvsync-result-area {
+    margin-top: 30px;
+    background-color: var(--cred-surface);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: var(--neumorphic-shadow-raised-light);
+}
+
+.cvsync-loading {
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--cred-accent);
+    padding: 20px;
+    /* Removed FontAwesome specific styles, Lottie player has its own */
+}
+
+.cvsync-error {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.5);
+    color: #ffdddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#cvSyncOutputContainer h3 {
+    font-family: var(--font-primary);
+    color: var(--cred-accent);
+    margin-bottom: 15px;
+    font-size: 1.4em;
+}
+
+.cvsync-output-text {
+    background-color: var(--cred-surface-inset-bg);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--medium-gray);
+    color: var(--cred-text-secondary);
+    white-space: pre-wrap; /* Allows wrapping and preserves spaces/newlines */
+    word-wrap: break-word;
+    font-family: 'Courier New', Courier, monospace; /* Monospaced for resume text */
+    font-size: 0.95em;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.cvsync-copy-button {
+    background-color: var(--cred-accent);
+    color: var(--cred-bg);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.cvsync-copy-button:hover {
+    background-color: var(--cred-accent-darker);
+}
+.copy-status-message {
+    margin-left: 15px;
+    font-size: 0.9em;
+    color: var(--cred-accent);
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        /* padding-top is already 70px, scroll-padding-top is also 70px. Adjust if navbar height changes on mobile */
+    }
+    #navbar .container {
+        flex-direction: column;
+        align-items: center;
+    }
+    #navbar .nav-logo {
+        margin-bottom: 10px; /* Space below logo on mobile */
+    }
+    #navbar .nav-logo img {
+        height: 35px; /* Slightly smaller logo on mobile */
+    }
+    #navLogoName {
+        font-size: 1.1em; /* Adjust for mobile */
+    }
+    #navbar ul {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+    #navbar ul li a {
+        padding: 8px 10px; /* Smaller padding on mobile */
+        text-align: center;
+        width: 100%; /* Full width links */
+    }
+
+    #header h1 {
+        font-size: 2.5em;
+    }
+    #header .subtitle {
+        font-size: 1.3em;
+    }
+    #header .contact-info {
+        gap: 10px 15px;
+        font-size: 0.9em;
+    }
+
+    .section h2 {
+        font-size: 2em;
+    }
+
+    .skills-grid, .project-grid, #educationList, #awardsList, .testimonial-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+
+    .experience-timeline::before {
+        left: 10px; /* Adjust line position */
+    }
+    .timeline-item {
+        padding-left: 40px; /* Adjust padding */
+    }
+    .timeline-dot {
+        left: 2px; /* Adjust dot position */
+        width: 12px;
+        height: 12px;
+    }
+    .timeline-item-date {
+        position: static; /* Stack date above content */
+        transform: none;
+        margin-bottom: 8px;
+        text-align: left;
+        width: auto;
+        background-color: transparent;
+        padding: 0;
+        font-size: 0.85em;
+    }
+    .timeline-content {
+        padding: 15px;
+    }
+
+    .custom-file-input-wrapper {
+        /* flex-direction: column is already set above */
+        align-items: center; /* Ensure items are centered on mobile too */
+    }
+    .cvsync-file-input-button {
+        width: 100%; /* Make button full width on mobile */
+        justify-content: center; /* Center text in button */
+    }
+    .file-name-display {
+        margin-top: 10px;
+        width: 100%;
+        text-align: center; /* Center filename text on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    #header h1 {
+        font-size: 2em;
+    }
+    #header .subtitle {
+        font-size: 1.1em;
+    }
+    .glow-on-hover { /* For resume button */
+        width: 180px;
+        height: 45px;
+        font-size: 0.9em;
+    }
+    .lottie-button-icon { /* Adjust for smaller buttons */
+        width: 24px;
+        height: 24px;
+    }
+    #backToTopBtn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2em;
+        bottom: 15px;
+        right: 15px;
+    }
+    .cvsync-form {
+        padding: 20px;
+    }
+    .cvsync-textarea {
+        font-size: 0.9em;
+    }
+    .cvsync-output-text {
+        font-size: 0.9em;
+        padding: 15px;
+    }
+    .lottie-cvsync-loading {
+        width: 120px;
+        height: 120px;
+    }
+    .lottie-upload-prompt-animation {
+        width: 70px;
+        height: 70px;
+    }
+}
+
+#loading-indicator i {
+    color: var(--cred-accent);
+    font-size: 2em;
 }

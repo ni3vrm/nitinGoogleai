@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nitin Verma - Product Manager</title>
-    <!-- Link to the main stylesheet -->
     <link rel="stylesheet" href="index.css">
-    <!-- Google Fonts for typography -->
+    <link rel="icon" type="image/x-icon" href="https://pzsvxfxmiuprmblkzhlu.supabase.co/storage/v1/object/public/portfolio//logo-icon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.2.0"
+  }
+}
+</script>
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
-    <!-- This div creates the animated "falling lines" background effect -->
     <div class="lines">
       <div class="line"></div>
       <div class="line"></div>
@@ -25,13 +31,12 @@
       <div class="line"></div>
       <div class="line"></div>
     </div>
-
-    <!-- Navigation Bar -->
     <nav id="navbar">
         <div class="container">
-            <!-- Logo/Name - links to the top of the page -->
-            <a href="#header" class="nav-logo">Nitin Verma</a>
-            <!-- Navigation links -->
+            <a href="#header" class="nav-logo">
+                <img src="https://pzsvxfxmiuprmblkzhlu.supabase.co/storage/v1/object/public/portfolio//logo-icon.ico" alt="Logo">
+                <span id="navLogoName">Nitin Verma</span>
+            </a>
             <ul>
                 <li><a href="#objective">Objective</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -40,69 +45,58 @@
                 <li><a href="#education">Education</a></li>
                 <li><a href="#awards">Awards</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#cvsync">CVSync</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Loading Indicator: Shown while data is being fetched from Google Sheets -->
     <div id="loading-indicator" style="display: none; text-align: center; padding: 50px; font-size: 1.2em; color: var(--cred-accent);">
         <i class="fas fa-spinner fa-spin"></i> Loading Portfolio Data...
     </div>
 
-    <!-- Header Section: Contains main profile information -->
     <header id="header">
         <div class="container header-content">
-            <!-- Profile Picture Area -->
             <div class="profile-picture-container">
                 <div class="profile-picture-wrapper">
-                    <!-- Profile picture image: src updated by JavaScript -->
-                    <img src="https://via.placeholder.com/160" alt="Nitin Verma" id="profilePicture" class="profile-picture">
+                    <img src="https://pzsvxfxmiuprmblkzhlu.supabase.co/storage/v1/object/public/portfolio//profile_no_bg.png" alt="Nitin Verma" id="profilePicture" class="profile-picture">
                 </div>
             </div>
-            <!-- Name: Updated by JavaScript -->
             <h1 id="profileName">Nitin Verma</h1>
-            <!-- Title/Subtitle: Updated by JavaScript -->
             <p class="subtitle" id="profileTitle">Product Manager</p>
-            <!-- Contact Information: Populated by JavaScript -->
             <div class="contact-info" id="contactInfo">
-                <!-- Contact info (LinkedIn, Email, Phone, Location) will be populated here by JavaScript -->
+                <!-- Contact info will be populated here -->
             </div>
-            <!-- Resume Download Button: Link updated by JavaScript -->
-            <a href="#" target="_blank" id="resumeLink" aria-label="Download Resume" style="text-decoration: none;">
+            <a href="https://pzsvxfxmiuprmblkzhlu.supabase.co/storage/v1/object/public/portfolio//Nitin%20Verma%20Resume.docx%20(3).pdf" target="_blank" id="resumeLink" aria-label="Download Resume" style="text-decoration: none;">
                 <button class="glow-on-hover">
-                    <span><i class="fas fa-download"></i> Resume</span>
-                    <!-- Container for magnetic particle hover effect on the button -->
+                    <span>
+                        <dotlottie-player src="https://lottie.host/60587381-9574-44ec-b2b9-86cdbdbfd2f3/ptkGAb4YKm.lottie" background="transparent" speed="1" loop autoplay class="lottie-button-icon"></dotlottie-player>
+                        Resume
+                    </span>
                     <div class="particles-field" id="magneticParticleField"></div>
                 </button>
             </a>
         </div>
     </header>
 
-    <!-- Main Content Area: Contains all the portfolio sections -->
     <main>
-        <!-- Career Objective Section -->
         <section id="objective" class="section">
             <div class="container">
                 <h2><i class="fas fa-bullseye"></i> Career Objective</h2>
-                <!-- Career objective text: Populated by JavaScript -->
                 <p id="careerObjectiveText">Loading career objective...</p>
             </div>
         </section>
 
-        <!-- Skills Section -->
         <section id="skills" class="section">
             <div class="container">
                 <h2><i class="fas fa-cogs"></i> Skills</h2>
                 <div class="skills-grid">
-                    <!-- Core Skills: Populated by JavaScript -->
-                    <div class="skill-category holographic-effect-card" id="coreSkills">
+                    <div class="skill-category holographic-effect-card" id="coreSkills"> <!-- UPDATED CLASS -->
                         <h3>Core Skills</h3>
                         <ul>
                             <li>Loading...</li>
                         </ul>
                     </div>
-                    <!-- Technical Skills: Populated by JavaScript -->
-                    <div class="skill-category holographic-effect-card" id="technicalSkills">
+                    <div class="skill-category holographic-effect-card" id="technicalSkills"> <!-- UPDATED CLASS -->
                         <h3>Technical Skills</h3>
                         <ul>
                             <li>Loading...</li>
@@ -112,69 +106,105 @@
             </div>
         </section>
 
-        <!-- Work Experience Section -->
         <section id="experience" class="section">
             <div class="container">
                 <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
-                <!-- Experience timeline: Populated by JavaScript -->
                 <div class="experience-timeline" id="experienceTimeline">
                     <p>Loading experience...</p>
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section -->
         <section id="projects" class="section">
             <div class="container">
                 <h2><i class="fas fa-project-diagram"></i> Projects</h2>
-                <!-- Project grid: Populated by JavaScript -->
                 <div class="project-grid" id="projectGrid">
                     <p>Loading projects...</p>
                 </div>
             </div>
         </section>
 
-        <!-- Education Section -->
         <section id="education" class="section">
             <div class="container">
                 <h2><i class="fas fa-graduation-cap"></i> Education</h2>
-                <!-- Education list: Populated by JavaScript -->
                 <div id="educationList">
                     <p>Loading education details...</p>
                 </div>
             </div>
         </section>
 
-        <!-- Awards & Recognitions Section -->
         <section id="awards" class="section">
             <div class="container">
                 <h2><i class="fas fa-trophy"></i> Awards & Recognitions</h2>
-                <!-- Awards list: Populated by JavaScript -->
                 <ul id="awardsList">
                     <li>Loading awards...</li>
                 </ul>
             </div>
         </section>
 
-        <!-- Testimonials Section -->
         <section id="testimonials" class="section">
             <div class="container">
                 <h2><i class="fas fa-comments"></i> Testimonials</h2>
-                <!-- Testimonials grid: Populated by JavaScript -->
                 <div class="testimonial-grid" id="testimonialGrid">
                     <p>Loading testimonials...</p>
                 </div>
             </div>
         </section>
+
+        <section id="cvsync" class="section">
+            <div class="container">
+                <h2><i class="fas fa-file-signature"></i> CV Sync - Tailor Your Resume</h2>
+                <p class="cvsync-description">Upload your resume (PDF) and paste a job description. Our AI will help tailor your resume content to match the job.</p>
+                <div class="cvsync-form">
+                    <div class="cvsync-input-group">
+                        <label for="resumeFileUpload" class="cvsync-label">1. Upload Your Resume (PDF)</label>
+                        <div class="custom-file-input-wrapper">
+                           <dotlottie-player 
+                                src="https://lottie.host/9e7e16b0-6482-4fc4-8322-591ea7516c2b/n5XHBuQHwF.lottie" 
+                                background="transparent" 
+                                speed="1" 
+                                loop 
+                                autoplay 
+                                class="lottie-upload-prompt-animation">
+                           </dotlottie-player>
+                           <input type="file" id="resumeFileUpload" accept=".pdf" class="cvsync-file-input-hidden" aria-describedby="fileNameDisplay">
+                           <label for="resumeFileUpload" class="btn cvsync-file-input-button">
+                               Choose PDF
+                           </label>
+                           <span id="fileNameDisplay" class="file-name-display">No file selected</span>
+                        </div>
+                    </div>
+                    <div class="cvsync-input-group">
+                        <label for="jobDescriptionInput" class="cvsync-label">2. Paste Job Description</label>
+                        <textarea id="jobDescriptionInput" rows="12" placeholder="Paste the full job description here..." class="cvsync-textarea" aria-label="Job Description Text Area"></textarea>
+                    </div>
+                    <button id="tailorResumeButton" class="glow-on-hover cvsync-button" disabled>
+                        <span><i class="fas fa-cogs"></i> Tailor My Resume</span>
+                    </button>
+                </div>
+                <div id="cvSyncResultArea" class="cvsync-result-area" aria-live="polite">
+                    <div id="cvSyncLoading" class="cvsync-loading" style="display: none;">
+                        <dotlottie-player src="https://lottie.host/e41a2379-0b60-418b-90e2-2344b40621c7/lFE3wvJwws.lottie" background="transparent" speed="1" loop autoplay class="lottie-cvsync-loading"></dotlottie-player>
+                        AI is tailoring your resume... This may take a moment.
+                    </div>
+                    <div id="cvSyncError" class="cvsync-error" style="display: none;"></div>
+                    <div id="cvSyncOutputContainer" style="display: none;">
+                        <h3>Tailored Resume Content:</h3>
+                        <pre id="tailoredResumeOutputText" class="cvsync-output-text"></pre>
+                        <button id="copyResumeTextButton" class="btn cvsync-copy-button">
+                            <i class="fas fa-copy"></i> Copy Text
+                        </button>
+                        <span id="copyStatusMessage" class="copy-status-message" style="display: none; margin-left: 10px;"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer Section -->
     <footer>
         <div class="container">
-            <!-- Copyright notice: Year and Name updated by JavaScript -->
             <p>&copy; <span id="currentYear">2024</span> <span id="footerName">Nitin Verma</span>. All Rights Reserved.</p>
-            <p>Crafted with <i class="fas fa-heart" style="color: var(--cred-accent);"></i>. Powered by Google Sheets.</p>
-            <!-- Footer social links: Populated by JavaScript -->
+            <p>Crafted with <i class="fas fa-heart" style="color: var(--cred-accent);"></i>. Powered by Google Sheets & Gemini.</p>
              <p>
                 <a id="footerLinkedInLink" href="#" target="_blank" rel="noopener noreferrer" class="highlight-glow-on-hover" aria-label="LinkedIn" style="display: none;"><i class="fab fa-linkedin"></i></a>
                 <a id="footerEmailLink" href="#" class="highlight-glow-on-hover" aria-label="Email" style="display: none;"><i class="fas fa-envelope"></i></a>
@@ -182,19 +212,14 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <button id="backToTopBtn" aria-label="Back to Top" class="highlight-glow-on-hover">
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Simple script to update the current year in the footer -->
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
-    <!-- Main JavaScript file for the portfolio logic (fetching data, rendering, interactivity) -->
-    <!-- 'type="module"' allows using modern JavaScript features like import/export (though not used here, it's good practice) -->
     <script src="index.tsx" type="module"></script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>
-<link rel="stylesheet" href="index.css">
-<script src="index.tsx" type="module"></script>
