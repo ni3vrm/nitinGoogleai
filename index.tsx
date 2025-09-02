@@ -237,24 +237,44 @@ function renderProjects(projectData: string[][]) {
     const grid = document.getElementById('projectGrid')!;
     grid.innerHTML = ''; // Clear loading/default
 
-    if (projectData.length === 0 || (projectData.length === 1 && projectData[0] && projectData[0].every(cell => !cell || cell.trim() === ''))) {
-        grid.innerHTML = '<p>Project data not available or incomplete. Please check sheet "Projects".</p>';
-        return;
-    }
-
     projectData.forEach(proj => {
         if (!proj) return; // Skip if row is undefined
-        const [name, description] = proj;
-        if (!name && !(description && description.trim())) return; // Skip empty logical rows
+        
+        // IMPORTANT: The Google Sheet "Projects" must have these 4 columns in this order:
+        // 1. Name, 2. Description, 3. Company, 4. IconLink
+        const [name, description, company, iconLink] = proj;
+
+        // Skip rows that are logically empty (e.g., no name and no description)
+        if (!(name && name.trim()) && !(description && description.trim())) {
+            return;
+        }
 
         const card = document.createElement('div');
         card.classList.add('project-card', 'holographic-effect-card');
+
+        const cleanCompany = company ? company.trim() : '';
+        const cleanIconLink = iconLink ? iconLink.trim() : '';
+
+        // Conditionally build the company info block
+        const companyInfoHtml = (cleanCompany || cleanIconLink) ? `
+            <div class="project-company-info">
+                ${cleanIconLink ? `<img src="${cleanIconLink}" alt="${cleanCompany || 'Company'} Logo" class="project-company-icon">` : ''}
+                ${cleanCompany ? `<span class="project-company-name">${cleanCompany}</span>` : ''}
+            </div>
+        ` : '';
+
         card.innerHTML = `
-            <h4>${name || 'Project Name N/A'}</h4>
-            <p>${description || 'Description not available.'}</p>
+            ${companyInfoHtml}
+            <h4>${(name && name.trim()) || 'Project Name N/A'}</h4>
+            <p>${(description && description.trim()) || 'Description not available.'}</p>
         `;
         grid.appendChild(card);
     });
+    
+    // After attempting to add all projects, check if any were actually added.
+    if (grid.children.length === 0) {
+        grid.innerHTML = '<p>No projects found. Please check the "Projects" sheet. It should contain rows with at least a project name or description, and have the columns: Name, Description, Company, IconLink.</p>';
+    }
 }
 
 function renderEducation(educationData: string[][]) {

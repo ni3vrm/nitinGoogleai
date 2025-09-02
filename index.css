@@ -850,9 +850,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
-.project-card {
-    /* holographic-effect-card applied */
-}
+
 .project-card h4 {
     font-family: var(--font-primary);
     color: var(--cred-accent);
@@ -862,6 +860,31 @@ body {
 .project-card p {
     font-size: 1em;
     color: var(--cred-text-secondary);
+}
+
+.project-company-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--cred-surface-alt);
+    padding-bottom: 15px;
+}
+
+.project-company-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: contain; /* Better for logos */
+    background-color: var(--cred-surface-inset-bg);
+    padding: 2px;
+    border: 1px solid var(--medium-gray);
+}
+
+.project-company-name {
+    font-size: 1em;
+    color: var(--cred-text-secondary);
+    font-weight: 600;
 }
 
 
